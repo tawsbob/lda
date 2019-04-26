@@ -4,7 +4,7 @@
 // Based on javascript implementation https://github.com/awaisathar/lda.js
 // Original code based on http://www.arbylon.net/projects/LdaGibbsSampler.java
 //
-const process = function({sentences, numberOfTopics, numberOfTermsPerTopic, languages, alphaValue, betaValue, randomSeed, stopWords }) {
+const process = function({sentences, numberOfTopics, numberOfTermsPerTopic, alphaValue, betaValue, randomSeed, stopWords }) {
     // The result will consist of topics and their included terms [[{"term":"word1", "probability":0.065}, {"term":"word2", "probability":0.047}, ... ], [{"term":"word1", "probability":0.085}, {"term":"word2", "probability":0.024}, ... ]].
     var result = []
     // Index-encoded array of sentences, with each row containing the indices of the words in the vocabulary.

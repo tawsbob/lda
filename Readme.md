@@ -23,7 +23,7 @@ var text = 'Cats are small. Dogs are big. Cats like to chase mice. Dogs like to 
 var sentences = text.match( /[^\.!\?]+[\.!\?]+/g );
 
 // Run LDA to get terms for 2 topics (5 terms each).
-var result = lda({ sentences, numberOfTopics: 1, numberOfTermsPerTopic: 5,);
+var result = lda({ sentences, numberOfTopics: 1, numberOfTermsPerTopic: 5 });
 ```
 
 The above example produces the following result with two topics (topic 1 is "cat-related", topic 2 is "dog-related"):
@@ -63,7 +63,7 @@ LDA returns an array of topics, each containing an array of terms. The result co
 The result can be traversed as follows:
 
 ```javascript
-var result = lda(documents, 2, 5);
+var result = lda({ sentences, numberOfTopics: 2, numberOfTermsPerTopic: 5 });
 
 // For each topic.
 for (var i in result) {
@@ -86,24 +86,11 @@ LDA uses [stop-words](https://en.wikipedia.org/wiki/Stop_words) to ignore common
 
 ```javascript
 // Use English (this is the default).
-result = lda(documents, 2, 5, ['en']);
+result = lda({ sentences, numberOfTopics: 1, numberOfTermsPerTopic: 5 });
 
-// Use German.
-result = lda(documents, 2, 5, ['de']);
+// Otherwise
+result = lda({ sentences, numberOfTopics: 1, numberOfTermsPerTopic: 5, stopWords: [ 'stop', 'words' ]  });
 
-// Use English + German.
-result = lda(documents, 2, 5, ['en', 'de']);
-```
-
-To add a new language-specific stop-words list, create a file /lda/lib/stopwords_XX.js where XX is the id for the language. For example, a French stop-words list could be named "stopwords_fr.js". The contents of the file should follow the format of an [existing](https://github.com/primaryobjects/lda/blob/master/lib/stopwords_en.js) stop-words list. The format is, as follows:
-
-```javascript
-exports.stop_words = [
-    'cette',
-    'que',
-    'une',
-    'il'
-];
 ```
 
 ## Setting a Random Seed
@@ -112,7 +99,12 @@ A specific random seed can be used to compute the same terms and probabilities d
 
 ```javascript
 // Use the random seed 123.
-result = lda(documents, 2, 5, null, null, null, 123);
+result = lad ({
+    sentences,
+    numberOfTopics: 2,
+    numberOfTermsPerTopic: 5,
+    randomSeed: 123
+})
 ```
 
 ## Author
