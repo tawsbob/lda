@@ -1,30 +1,27 @@
-var stem = require('stem-porter');
+﻿const stem = require('stem-porter');
 
 //
 // Based on javascript implementation https://github.com/awaisathar/lda.js
 // Original code based on http://www.arbylon.net/projects/LdaGibbsSampler.java
 //
-var process = function(sentences, numberOfTopics, numberOfTermsPerTopic, languages, alphaValue, betaValue, randomSeed) {
+const process = function({sentences, numberOfTopics, numberOfTermsPerTopic, languages, alphaValue, betaValue, randomSeed, stopWords }) {
     // The result will consist of topics and their included terms [[{"term":"word1", "probability":0.065}, {"term":"word2", "probability":0.047}, ... ], [{"term":"word1", "probability":0.085}, {"term":"word2", "probability":0.024}, ... ]].
-    var result = [];
+    var result = []
     // Index-encoded array of sentences, with each row containing the indices of the words in the vocabulary.
-    var documents = new Array();
+    var documents = []
     // Hash of vocabulary words and the count of how many times each word has been seen.
-    var f = {};
+    var f = {}
     // Vocabulary of unique words (porter stemmed).
-    var vocab=new Array();
+    var vocab=[]
     // Vocabulary of unique words in their original form.
-    var vocabOrig = {};
-    // Array of stop words
-    languages = languages || Array('en');
+    var vocabOrig = {}
 
     if (sentences && sentences.length > 0) {
-      var stopwords = new Array();
-
-      languages.forEach(function(value) {
-          var stopwordsLang = require('./stopwords_' + value + ".js");
-          stopwords = stopwords.concat(stopwordsLang.stop_words);
-      });
+      let stopwords = stopWords || []
+    
+        if(!stopwords.length){
+            stopwords = require('./stopwords_en.js')
+        }
 
       for(var i=0;i<sentences.length;i++) {
           if (sentences[i]=="") continue;

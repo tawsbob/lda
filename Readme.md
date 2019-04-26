@@ -20,10 +20,10 @@ var lda = require('lda');
 var text = 'Cats are small. Dogs are big. Cats like to chase mice. Dogs like to eat bones.';
 
 // Extract sentences.
-var documents = text.match( /[^\.!\?]+[\.!\?]+/g );
+var sentences = text.match( /[^\.!\?]+[\.!\?]+/g );
 
 // Run LDA to get terms for 2 topics (5 terms each).
-var result = lda(documents, 2, 5);
+var result = lda({ sentences, numberOfTopics: 1, numberOfTermsPerTopic: 5,);
 ```
 
 The above example produces the following result with two topics (topic 1 is "cat-related", topic 2 is "dog-related"):

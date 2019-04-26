@@ -1,4 +1,4 @@
-exports.stop_words = [
+module.exports = [
     'a',
     'able',
     'about',
